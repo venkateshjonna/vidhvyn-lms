@@ -6,6 +6,7 @@ import com.venkatesh.vidhvyn.model.User;
 import com.venkatesh.vidhvyn.repository.RoleRepository;
 import com.venkatesh.vidhvyn.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -15,6 +16,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void registerUser(RegisterDTO registerDTO) {
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(registerDTO.getEmail());
         user.setEmail(registerDTO.getEmail());
         user.setMobileNumber(registerDTO.getMobileNumber());
-        user.setPassword(registerDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         user.setDateOfBirth(registerDTO.getDateOfBirth());
         user.getRoles().add(defaultRole);
 

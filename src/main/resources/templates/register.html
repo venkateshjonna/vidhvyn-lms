@@ -130,6 +130,14 @@
       </div>
 
       <button type="submit" class="btn-submit">Register</button>
+
+      <div
+              th:if="${message}"
+              style="margin-bottom:15px; padding:10px; border-radius:5px;
+         background:#fee2e2; color:#991b1b; text-align:center;">
+        <span th:text="${message}"></span>
+      </div>
+
     </form>
 
     <p class="login-link">
