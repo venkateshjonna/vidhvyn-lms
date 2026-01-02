@@ -1,14 +1,17 @@
 package com.venkatesh.vidhvyn.controller;
 
 import com.venkatesh.vidhvyn.DTO.RegisterDTO;
+import com.venkatesh.vidhvyn.model.EmailVerificationToken;
+import com.venkatesh.vidhvyn.model.User;
+import com.venkatesh.vidhvyn.repository.EmailVerificationTokenRepository;
+import com.venkatesh.vidhvyn.repository.UserRepository;
 import com.venkatesh.vidhvyn.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/user")
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final EmailVerificationTokenRepository emailVerificationTokenRepository;
 
     @GetMapping("/register")
     public String shoeRegister() {
@@ -37,5 +42,52 @@ public class UserController {
 
         }
         return "register";
+    }
+
+    @GetMapping("/verification-success")
+    public String verifySuccess()
+    {
+        return "verification-success";
+    }
+    @GetMapping("/verification-failure")
+    public String verifyFailure()
+    {
+        return "verification-failure";
+    }
+
+    @GetMapping("/verify-email")
+    public String verifyEmail(@RequestParam String token, Model model) {
+        EmailVerificationToken emailVerificationToken=emailVerificationTokenRepository.findByToken(token)
+                .orElse(null);
+        if(emailVerificationToken==null)
+            return "redirect:/user/verification-failure";
+        if(emailVerificationToken.isUsed())
+            return "redirect:/user/verification-failure";
+        if(emailVerificationToken.getExpiryDate().isBefore(LocalDateTime.now()))
+            return "redirect:/user/verification-failure";
+
+        User user=emailVerificationToken.getUser();
+        user.setEnabled(true);
+        userRepository.save(user);
+
+        emailVerificationToken.setUsed(true);
+        emailVerificationTokenRepository.save(emailVerificationToken);
+
+        return "redirect:/user/verification-success";
+    }
+
+    @GetMapping("/resend-verification")
+    public String resendVerification() {
+        return "resend-verification";
+    }
+
+    @PostMapping("/resend-verification")
+    public String resendVerification(@RequestParam String email, Model model) {
+        boolean sent=userService.resendVerificationEmail(email);
+        if(sent)
+            model.addAttribute("message", "Verification email has been sent");
+        else
+            model.addAttribute("message", "Something went wrong");
+        return "resend-verification";
     }
 }

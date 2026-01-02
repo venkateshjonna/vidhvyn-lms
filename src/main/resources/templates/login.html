@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Vidhvyn LMS</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+        /* Shared styles with Register page */
+        .header {
+            background-color: #1e293b;
+            color: white;
+            padding: 1px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1e293b;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .login-container {
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 75vh;
+        }
+
+        .form-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .form-card h2 {
+            margin-bottom: 25px;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #1e293b;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .form-footer a {
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .alert-error {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #fee2e2;
+            color: #991b1b;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>Vidhvyn LMS</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/user/register">Register</a>
+    </nav>
+</header>
+
+<main class="login-container">
+    <div class="form-card">
+        <h2>Welcome Back</h2>
+
+
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="username" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+
+        <div class="form-footer">
+            <p>Don't have an account? <a href="/user/register">Register here</a></p>
+            <p style="margin-top: 10px;">
+                <a href="/user/rede">Forgot password? / Verify Email</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>© 2025 Vidhvyn LMS</p>
+</footer>
+
+</body>
+</html>

@@ -24,7 +24,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth->auth
                         .requestMatchers(
                                 "/",
-                                "/user/register"
+                                "/user/register",
+                                "/user/verify-email",
+                                "/user/verification-success",
+                                "/user/verification-failure",
+                                "/user/resend-verification"
+
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

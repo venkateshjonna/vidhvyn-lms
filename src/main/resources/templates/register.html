@@ -7,6 +7,31 @@
   <link rel="stylesheet" href="/css/home.css">
   <style>
     /* Specific styles for the registration form */
+    .header {
+      background-color: #1e293b;
+      color: white;
+      padding: 1px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+    .footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #1e293b;
+      color: white;
+    }
+    .space{
+      height: 350px;
+      padding-top: 60px; /* Prevents header from covering the start of content */
+      background-color: white;
+    }
+
     .register-container {
       padding: 50px 20px;
       display: flex;
@@ -95,9 +120,10 @@
     <a href="/">Home</a>
     <a href="#">Courses</a>
     <a href="#">Login</a>
-    <a href="/user/register" class="active">Register</a>
+    <a href="/user/register">Register</a>
   </nav>
 </header>
+
 
 <main class="register-container">
   <div class="form-card">
@@ -142,6 +168,9 @@
 
     <p class="login-link">
       Already have an account? <a href="#">Login here</a>
+    </p>
+    <p class="login-link">
+      Verify Your Mail..<a href="/user/resend-verification">Verify email</a>
     </p>
   </div>
 </main>

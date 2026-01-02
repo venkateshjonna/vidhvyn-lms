@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email | Vidhvyn LMS</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+        /* Consistent layout with your Registration page */
+        .header {
+            background-color: #1e293b;
+            color: white;
+            padding: 1px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #1e293b;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .verify-container {
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+        .form-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-card h2 {
+            margin-bottom: 10px;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .form-card p.subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #1e293b;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+        }
+
+        /* Response Messages */
+        .alert {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+        .back-link a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>Vidhvyn LMS</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/user/register">Register</a>
+    </nav>
+</header>
+
+<main class="verify-container">
+    <div class="form-card">
+        <h2>Verify Email</h2>
+        <p class="subtitle">Enter your email to receive a verification link.</p>
+
+        <form action="/user/resend-verification" method="POST">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Verification Link</button>
+        </form>
+
+        <div th:if="${message}"
+             th:classappend="${status == 'error'} ? 'alert alert-error' : 'alert alert-success'">
+            <span th:text="${message}"></span>
+        </div>
+
+        <p class="back-link">
+            <a href="/user/register">← Back to Registration</a>
+        </p>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>© 2025 Vidhvyn LMS</p>
+</footer>
+
+</body>
+</html>
