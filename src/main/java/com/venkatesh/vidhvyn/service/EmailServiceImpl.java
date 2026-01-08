@@ -4,6 +4,7 @@ package com.venkatesh.vidhvyn.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSenderImpl mailSender;
 
+    @Async
     @Override
     public void sendVerificationEmail(String toMail, String link) {
 

@@ -5,8 +5,10 @@ import com.venkatesh.vidhvyn.model.EmailVerificationToken;
 import com.venkatesh.vidhvyn.model.User;
 import com.venkatesh.vidhvyn.repository.EmailVerificationTokenRepository;
 import com.venkatesh.vidhvyn.repository.UserRepository;
+import com.venkatesh.vidhvyn.service.RecaptchaService;
 import com.venkatesh.vidhvyn.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +23,29 @@ public class UserController {
     private final UserService userService;
     private final UserRepository userRepository;
     private final EmailVerificationTokenRepository emailVerificationTokenRepository;
+    private final RecaptchaService recaptchaService;
+    @Value("${recaptcha.site-key}")
+    private String recaptchaSiteKey;
+
 
     @GetMapping("/register")
-    public String shoeRegister() {
+    public String showRegister(Model model) {
+        model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute RegisterDTO registerDTO, Model model) {
+    public String registerUser(@ModelAttribute RegisterDTO registerDTO,
+                               @RequestParam("g-recaptcha-response") String captchaResponse,
+                               Model model) {
+
+        if (!recaptchaService.verify(captchaResponse)) {
+            model.addAttribute("message", "Captcha verification failed. Please try again.");
+            model.addAttribute("registerDTO", registerDTO);
+            model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
+            return "register";
+        }
+
         try {
             userService.registerUser(registerDTO);
             model.addAttribute("message", "User registered successfully");

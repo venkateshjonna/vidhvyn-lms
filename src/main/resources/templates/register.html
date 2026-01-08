@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register | Vidhvyn LMS</title>
   <link rel="stylesheet" href="/css/home.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     /* Specific styles for the registration form */
     .header {
@@ -129,25 +130,25 @@
   <div class="form-card">
     <h2>Create Account</h2>
 
-    <form action="/user/register" method="POST">
+    <form action="/user/register" method="POST" onsubmit="return validateCaptcha()">
       <div class="form-group">
         <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="username" placeholder="John Doe" required>
+        <input type="text" id="fullName" name="username" placeholder="John Doe" th:value="${registerDTO.username}" required>
       </div>
 
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+        <input type="email" id="email" name="email" placeholder="john@example.com" th:value="${registerDTO.email}" required>
       </div>
 
       <div class="form-group">
         <label for="mobile">Mobile Number</label>
-        <input type="tel" id="mobile" name="mobileNumber" placeholder="+1234567890" required>
+        <input type="tel" id="mobile" name="mobileNumber" placeholder="+1234567890" th:value="${registerDTO.mobileNumber}" required>
       </div>
 
       <div class="form-group">
         <label for="dob">Date of Birth</label>
-        <input type="date" id="dob" name="dateOfBirth" required>
+        <input type="date" id="dob" name="dateOfBirth" th:value="${registerDTO.dateOfBirth}" required>
       </div>
 
       <div class="form-group">
@@ -155,6 +156,24 @@
         <input type="password" id="password" name="password" placeholder="••••••••" required>
       </div>
 
+
+      <div class="form-group">
+        <div class="g-recaptcha"
+             th:attr="data-sitekey=${recaptchaSiteKey}">
+        </div>
+      </div>
+
+
+      <script>
+        function validateCaptcha() {
+          const response = grecaptcha.getResponse();
+          if (response.length === 0) {
+            alert("Please verify that you are not a robot.");
+            return false;
+          }
+          return true;
+        }
+      </script>
       <button type="submit" class="btn-submit">Register</button>
 
       <div
@@ -163,6 +182,7 @@
          background:#fee2e2; color:#991b1b; text-align:center;">
         <span th:text="${message}"></span>
       </div>
+
 
     </form>
 

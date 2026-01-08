@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -45,4 +46,6 @@ public class User {
     private Set<Role> roles=new HashSet<>();
 
     private boolean isEnabled=false;
+
+
 }
