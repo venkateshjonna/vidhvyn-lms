@@ -30,6 +30,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String showRegister(Model model) {
+        model.addAttribute("registerDTO", new RegisterDTO());
         model.addAttribute("recaptchaSiteKey", recaptchaSiteKey);
         return "register";
     }
@@ -107,4 +108,5 @@ public class UserController {
             model.addAttribute("message", "Something went wrong");
         return "resend-verification";
     }
+
 }

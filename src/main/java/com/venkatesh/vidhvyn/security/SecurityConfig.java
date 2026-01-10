@@ -28,7 +28,9 @@ public class SecurityConfig {
                                 "/user/verify-email",
                                 "/user/verification-success",
                                 "/user/verification-failure",
-                                "/user/resend-verification"
+                                "/user/resend-verification",
+                                "/auth/login",
+                                "/dashboard/main"
 
                         ).permitAll()
                         .anyRequest().authenticated()

@@ -135,10 +135,10 @@
         <h2>Welcome Back</h2>
 
 
-        <form action="/login" method="POST">
+        <form action="/auth/login" method="POST">
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" name="username" placeholder="Enter your email" required>
+                <input type="email" id="email" name="email" placeholder="Enter your email" th:value="${loginDTO.email}" required>
             </div>
 
             <div class="form-group">
@@ -147,6 +147,14 @@
             </div>
 
             <button type="submit" class="btn-submit">Login</button>
+
+            <div
+                    th:if="${error}"
+                    style="margin-bottom:15px; padding:10px; border-radius:5px;
+         background:#fee2e2; color:#991b1b; text-align:center;">
+                <span th:text="${error}"></span>
+            </div>
+
         </form>
 
         <div class="form-footer">
