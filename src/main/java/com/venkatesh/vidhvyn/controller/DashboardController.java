@@ -11,9 +11,6 @@ public class DashboardController {
 
     @GetMapping("/main")
     public String showDashboard(HttpSession session) {
-        if (session.getAttribute("LOGGED_USER") == null) {
-            return "redirect:/auth/login";
-        }
         return "dashBoard";
     }
 }

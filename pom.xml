@@ -91,8 +91,38 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
+<!-- JWT -->
+<!-- Source: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-api</artifactId>
+    <version>0.13.0</version>
+    <scope>compile</scope>
+</dependency>
+<!-- Source: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-impl</artifactId>
+    <version>0.13.0</version>
+    <scope>runtime</scope>
+</dependency>
+<!-- Source: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson -->
+<dependency>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt-jackson</artifactId>
+    <version>0.13.0</version>
+    <scope>runtime</scope>
+</dependency>
 
-	</dependencies>
+
+
+	
+   <dependency>
+     <groupId>com.h2database</groupId>
+     <artifactId>h2</artifactId>
+     <version>1.4.199</version>
+   </dependency>
+ </dependencies>
 
 	<build>
 		<plugins>
