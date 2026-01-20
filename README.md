@@ -34,6 +34,7 @@ JwtAuthFilter validates token
 Spring Security allows access
 
 🔑 JWT Flow Explained
+
 1️⃣ Login
 
 User sends email & password
